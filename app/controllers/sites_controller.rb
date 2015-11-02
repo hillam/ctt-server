@@ -1,5 +1,4 @@
 class SitesController < ApplicationController
-    skip_before_action :verify_authenticity_token
     before_filter :authorize
 
     def index
@@ -27,6 +26,7 @@ class SitesController < ApplicationController
     private
 
     def authorize
-        !current_user.nil?
+        # raise 404 error if user is not logged in
+        raise ActionController::RoutingError.new('Not Found') if current_user.nil?
     end
 end
