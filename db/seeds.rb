@@ -10,3 +10,8 @@ User.create(
     password:               "password",
     password_confirmation:  "password"
 )
+
+Site.create(
+	hostname: 	"facebook.com",
+	user_id: 	1
+)

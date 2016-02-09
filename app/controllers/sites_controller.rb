@@ -18,7 +18,14 @@ class SitesController < ApplicationController
             site = current_user.sites.find_by(hostname: host)
             if site.nil?
                 site = Site.create(hostname: host, user_id: current_user.id)
-            end
+			else # determine whether to notify
+				notifications = site.notifications.where('sent + span < ?', Time.now.to_i)
+				notifications.each do |noti|
+					if noti.entries.where('created_at > ?', Time.at(noti.sent))
+						redirect_to notifications_notify(id: noti.id)
+					end
+				end
+			end
             Entry.create(time: time, site_id: site.id)
         end
     end

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+	</head>
+	<body>
+		<h1 style="border-bottom: solid black 1px;">
+			Notification from Chrome Time Tracker
+		</h1>
+		<p>
+			You have exceeded your set time limit of <% @notification.time %>
+			spent on <% @site.hostname %> in the last <% @notifications.span %>.
+		</p>
+		<p>
+			Log in to view and edit your notifications at
+			<a href="http://ctt-ahill.rhcloud.com/">http://ctt-ahill.rhcloud.com</a>.
+		</p>
+	</body>
+</html>
