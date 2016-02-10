@@ -7,6 +7,6 @@ class Notification < ActiveRecord::Base
 	# end
 
 	def expired?
-		self.sent + self.span > Time.now.to_i
+		self.sent + self.span < Time.now.to_i
 	end
 end

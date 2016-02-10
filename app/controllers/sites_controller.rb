@@ -20,11 +20,14 @@ class SitesController < ApplicationController
                 site = Site.create(hostname: host, user_id: current_user.id)
 			else # determine whether to notify
 				site.notifications.each do |noti|
+					# expired
 					if noti.expired?
 						noti.sent = Time.now.to_i
 						noti.save
+					# ready to send
 					elsif site.entries.where('created_at > ?', Time.at(noti.sent)).sum(:time)
 						noti.sent = Time.now.to_i
+						noti.save
 						NotificationMailer.notify(noti, current_user.email).deliver_later
 					end
 				end
