@@ -21,7 +21,7 @@ class SitesController < ApplicationController
 			else # determine whether to notify
 				notifications = site.notifications.where('sent + span < ?', Time.now.to_i)
 				notifications.each do |noti|
-					if noti.entries.where('created_at > ?', Time.at(noti.sent))
+					if site.entries.where('created_at > ?', Time.at(noti.sent))
 						redirect_to notifications_notify(id: noti.id)
 					end
 				end
