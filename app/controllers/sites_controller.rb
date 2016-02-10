@@ -24,7 +24,8 @@ class SitesController < ApplicationController
 						noti.sent = Time.now.to_i
 						noti.save
 					elsif site.entries.where('created_at > ?', Time.at(noti.sent)).sum(:time)
-						noti.notify current_user.email
+						noti.sent = Time.now.to_i
+						NotificationMailer.notify(noti, current_user.email).deliver_later
 					end
 				end
 			end
