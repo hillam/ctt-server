@@ -1,15 +1,6 @@
 class NotificationsController < ApplicationController
 	before_filter :authorize
 
-	# send the notification
-	def notify
-		if Notification.exists?(id: params.require(:id))
-			@notification = Notification.find(params.require(:id))
-			@notification.sent = Time.now.to_i
-			NotificationMailer.notify(@notification).deliver_later
-		end
-	end
-
 	# create a new notification
 	def create
 		site = Site.find_by(hostname: params[:hostname], user_id: current_user.id)

@@ -22,7 +22,7 @@ class SitesController < ApplicationController
 				notifications = site.notifications.where('sent + span < ?', Time.now.to_i)
 				notifications.each do |noti|
 					if site.entries.where('created_at > ?', Time.at(noti.sent))
-						redirect_to notifications_notify(id: noti.id)
+						noti.notify
 					end
 				end
 			end
