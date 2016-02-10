@@ -1,9 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  time: 
-  span: 
-
-two:
-  time: 
-  span: 
+  time: 180
+  span: 3600
+  sent: <%= Time.now.to_i %>
+  site_id: 1

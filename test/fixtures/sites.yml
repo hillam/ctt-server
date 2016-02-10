@@ -1,7 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  hostname: MyString
-
-two:
-  hostname: MyString
+  id: 1
+  hostname: www.facebook.com
