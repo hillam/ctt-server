@@ -19,10 +19,12 @@ class SitesController < ApplicationController
             if site.nil?
                 site = Site.create(hostname: host, user_id: current_user.id)
 			else # determine whether to notify
-				notifications = site.notifications.where('sent + span < ?', Time.now.to_i)
-				notifications.each do |noti|
-					if site.entries.where('created_at > ?', Time.at(noti.sent))
-						noti.notify
+				site.notifications.each do |noti|
+					if noti.expired?
+						noti.sent = Time.now.to_i
+						noti.save
+					elsif site.entries.where('created_at > ?', Time.at(noti.sent)).sum(:time)
+						noti.notify current_user.email
 					end
 				end
 			end

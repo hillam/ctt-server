@@ -5,4 +5,8 @@ class Notification < ActiveRecord::Base
 		self.sent = Time.now.to_i
 		NotificationMailer.notify(self, email).deliver_later
 	end
+
+	def expired?
+		self.sent + self.span > Time.now.to_i
+	end
 end
