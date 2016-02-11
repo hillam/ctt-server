@@ -8,6 +8,7 @@ class NotificationsController < ApplicationController
 		data[:site_id] = site.id
 		data[:sent] = Time.now.to_i
 		Notification.create(data)
+		redirect_to controller: 'application', action: 'index'
 	end
 
 	# return all notifications
@@ -18,6 +19,9 @@ class NotificationsController < ApplicationController
 
 	# delete a notification
 	def destroy
+		if(current_user.notifications.exists?(id: params[:id]))
+			Notification.find(params[:id]).destroy;
+		end
 	end
 
 	private
