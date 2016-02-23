@@ -1,19 +1,27 @@
 class SitesController < ApplicationController
-    before_filter :authorize
+    before_filter :authorize, only: :update
 
     def index
-        sites = {}
-        user_sites = current_user.sites.to_a
-        user_sites.each do |site|
-            sites[site.hostname] = site.entries.sum(:time)
-        end
-        render json: sites
+		if params[:user_id]	# for profile
+			user = User.find(params[:user_id])
+			@sites = user.sites.visible(current_user).to_a
+		else 				# for API
+			authorize
+			@sites = current_user.sites.to_a
+		end
     end
 
     def show
+		@user = User.find(params[:user_id])
+		@site = @user.sites.where(id: params[:id]).visible(current_user).first
+		raise ActionController::RoutingError.new('Not Found') unless @site
     end
 
     def update
+		#
+		# This is way to bulky..
+		# Trim this down.
+		#
         params.require(:sites).each do |host, time|
             site = current_user.sites.find_by(hostname: host)
             if site.nil?
@@ -33,8 +41,14 @@ class SitesController < ApplicationController
 				end
 			end
             Entry.create(time: time, site_id: site.id)
-        end
+		end
     end
+
+	def update_public
+		site = Site.find(params[:id])
+		site.public = params[:public]
+		site.save
+	end
 
     private
 

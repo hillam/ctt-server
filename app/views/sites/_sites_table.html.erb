@@ -1,0 +1,37 @@
+<%
+	sites ||= @sites # we're either coming from the controller or the user view
+	current = sites.first ? sites.first.belongs_to?(current_user) : false
+%>
+
+<% if sites.first %>
+<hr align='left'>
+<table id="table" align="center">
+	<thead align='left'>
+		<tr>
+			<th>Site</th>
+			<th># Hours</th>
+			<% if current %>
+				<th>Public</th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody id='data'>
+		<% sites.each do |site| %>
+			<tr>
+				<td>
+					<%= unless user.nil?
+							link_to site.hostname, user_site_path(user, site)
+						else
+							site.hostname
+						end
+					%>
+				</td>
+				<td><%= hours site.time %></td>
+				<% if current %>
+					<td><input type="checkbox" id="public" <%= 'checked' if site.public %> site="<%= site.id %>"></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>

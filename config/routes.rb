@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
-    root 'application#index'
+	root 'application#index'
 
-    devise_for :users
+	devise_for :users
+
+	resources :users, only: [:show] do
+		resources :sites, only: [:show]
+	end
 
     ## API Methods
     get 'sites',        to: 'sites#index'   # show all sites
-    get 'sites/:id',    to: 'sites#show'    # show single site
     post 'sites',       to: 'sites#update'  # update using entire sites object
+	post 'sites/:id', 	to: 'sites#update_public'
 
 	get 'notifications',		to: 'notifications#index'
 	post 'notifications',		to: 'notifications#create'

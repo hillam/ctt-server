@@ -7,8 +7,9 @@ class NotificationsController < ApplicationController
 		data = params.permit(:time, :sent, :span)
 		data[:site_id] = site.id
 		data[:sent] = Time.now.to_i
+		data[:time] = data[:time].to_i * 3600
 		Notification.create(data)
-		redirect_to controller: 'application', action: 'index'
+		redirect_to request.referer
 	end
 
 	# return all notifications

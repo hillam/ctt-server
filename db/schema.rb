@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208203402) do
+ActiveRecord::Schema.define(version: 20160222213801) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "time"
@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(version: 20160208203402) do
 
   create_table "sites", force: :cascade do |t|
     t.string   "hostname"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
+    t.boolean  "public",     default: false
   end
 
   create_table "users", force: :cascade do |t|

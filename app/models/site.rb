@@ -4,4 +4,18 @@ class Site < ActiveRecord::Base
     belongs_to :user
 
     validates_uniqueness_of :hostname, :scope => [:user_id]
+
+	def time
+		self.entries.sum(:time)
+	end
+
+	def belongs_to? user
+		user ? false : user.sites.exists?(self.id)
+	end
+
+	def self.visible user
+		result = where(public: true)
+		result += where(user_id: user.id) if user
+		result
+	end
 end
