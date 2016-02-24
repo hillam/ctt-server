@@ -10,7 +10,7 @@ class Site < ActiveRecord::Base
 	end
 
 	def belongs_to? user
-		user ? false : user.sites.exists?(self.id)
+		user ? user.sites.exists?(self.id) : false
 	end
 
 	def self.visible user
