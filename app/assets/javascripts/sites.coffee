@@ -14,5 +14,5 @@
 	return
 
 $ ->
-	$('#public').click ->
+	$('.public').click ->
 		jqxhr = $.post('/sites/' + $(this).attr('site'), {'public': this.checked})
