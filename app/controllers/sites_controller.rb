@@ -33,7 +33,7 @@ class SitesController < ApplicationController
 						noti.sent = Time.now.to_i
 						noti.save
 					# ready to send
-					elsif site.entries.where('created_at > ?', Time.at(noti.sent)).sum(:time)
+					elsif site.entries.where('created_at > ?', Time.at(noti.sent)).sum(:time) > noti.time
 						noti.sent = Time.now.to_i
 						noti.save
 						NotificationMailer.notify(noti, current_user.email).deliver_later
