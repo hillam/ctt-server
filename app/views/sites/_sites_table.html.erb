@@ -9,7 +9,7 @@
 	<thead align='left'>
 		<tr>
 			<th>Site</th>
-			<th># Hours</th>
+			<th>Time</th>
 			<% if current %>
 				<th>Public</th>
 			<% end %>
@@ -27,7 +27,7 @@
 						end
 					%>
 				</td>
-				<td><%= hours site.time %></td>
+				<td><%= format_time site.time %></td>
 				<% if current %>
 					<td><input type="checkbox" class="public" <%= 'checked' if site.public %> site="<%= site.id %>"></td>
 				<% end %>
