@@ -4,7 +4,8 @@ class SitesController < ApplicationController
     def index
 		if params[:user_id]	# for profile
 			user = User.find(params[:user_id])
-			@sites = user.sites.visible(current_user).to_a
+			query = user.sites.visible(current_user)
+			@sites = query.sort{|a,b| b.time <=> a.time}.to_a
 		else 				# for API
 			authorize
 			@sites = current_user.sites.to_a
