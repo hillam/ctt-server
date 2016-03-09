@@ -58,5 +58,6 @@ module SitesHelper
 				return dec_format + " " + unit[:name] + s
 			end
 		end
+		0 # otherwise 'units' gets returned
 	end
 end
