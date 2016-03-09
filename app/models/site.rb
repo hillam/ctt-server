@@ -16,6 +16,6 @@ class Site < ActiveRecord::Base
 	def self.visible user
 		result = where(public: true)
 		result += where(user_id: user.id, public: false) if user
-		result
+		result.sort{|a,b| b.time <=> a.time}
 	end
 end
