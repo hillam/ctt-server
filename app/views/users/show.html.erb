@@ -1,5 +1,7 @@
 <h3>User: <%= @user.email %></h3>
 
-<%= render partial: 'sites/sites_table', locals: {sites: @user.sites.visible(current_user).to_a, user: @user} %>
+<%= render partial: 'sites/sites_table', locals: {
+	sites: @user.sites.visible(current_user).sort{|a,b| b.time <=> a.time}.to_a,
+	user: @user } %>
 
 <%= render partial: 'go_back', locals: {sites: @user.sites.visible(current_user).to_a, user: @user} %>

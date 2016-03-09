@@ -1,15 +1,9 @@
 class SitesController < ApplicationController
     before_filter :authorize, only: :update
 
-    def index
-		if params[:user_id]	# for profile
-			user = User.find(params[:user_id])
-			query = user.sites.visible(current_user)
-			@sites = query.sort{|a,b| b.time <=> a.time}.to_a
-		else 				# for API
-			authorize
-			@sites = current_user.sites.to_a
-		end
+    def index			# for API
+		authorize
+		@sites = current_user.sites.to_a
     end
 
     def show
