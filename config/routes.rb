@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'sites',        to: 'sites#index', defaults: {format: :json}   # show all sites
     post 'sites',       to: 'sites#update'  # update using entire sites object
 	post 'sites/:id', 	to: 'sites#update_public'
+	get 'checklogin', 	to: 'users#checklogin', defaults: {format: :json}
 
 	get 'notifications',		to: 'notifications#index'
 	post 'notifications',		to: 'notifications#create'
