@@ -6,7 +6,7 @@ class Site < ActiveRecord::Base
     validates_uniqueness_of :hostname, :scope => [:user_id]
 
 	def time
-		self.entries.sum(:time)
+		self.entries.forever
 	end
 
 	def belongs_to? user
