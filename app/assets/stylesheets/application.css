@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require dataTables/jquery.dataTables
  */
  body{
 	margin: 5% 10% 5% 10%;

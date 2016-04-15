@@ -16,3 +16,8 @@
 $ ->
 	$('.public').click ->
 		jqxhr = $.post('/sites/' + $(this).attr('site'), {'public': this.checked})
+
+	$('#table').dataTable
+		'paging': 	true,
+		'info': 	false,
+		'searching':false

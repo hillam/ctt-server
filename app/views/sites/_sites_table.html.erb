@@ -8,18 +8,19 @@
 <table id="table" align="center">
 	<thead align='left'>
 		<tr>
-			<th>Site</th>
-			<th>Time</th>
+			<th class='col-md-8'>Site</th>
 			<% if current %>
-				<th>Public</th>
+				<th class='col-md-3'>Time</th>
+				<th class='col-md-1'>Public</th>
+			<% else %>
+				<th class='col-md-4'>Time</th>
 			<% end %>
 		</tr>
 	</thead>
 	<tbody id='data'>
-
 		<% sites.each do |site| %>
 			<tr>
-				<td>
+				<td class='col-md-8'>
 					<%= unless user.nil?
 							link_to site.hostname, user_site_path(user, site)
 						else
@@ -27,9 +28,11 @@
 						end
 					%>
 				</td>
-				<td><%= format_time site.time %></td>
 				<% if current %>
-					<td><input type="checkbox" class="public" <%= 'checked' if site.public %> site="<%= site.id %>"></td>
+					<td class='col-md-3'><%= format_time site.time %></td>
+					<td class='col-md-1'><input type="checkbox" class="public" <%= 'checked' if site.public %> site="<%= site.id %>"></td>
+				<% else %>
+					<td class='col-md-4'><%= format_time site.time %></td>
 				<% end %>
 			</tr>
 		<% end %>
