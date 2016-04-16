@@ -18,6 +18,7 @@ $ ->
 		jqxhr = $.post('/sites/' + $(this).attr('site'), {'public': this.checked})
 
 	$('#table').dataTable
+		'bSort':	false,
 		'paging': 	true,
 		'info': 	false,
 		'searching':false
